@@ -5,7 +5,7 @@ This module enables you to create Redis namespaces.
 Example usage:
 
 	var redis = require('redis');
-	var RedisNS = require('../index.js');
+	var RedisNS = require('redis-ns');
 
 	var redisClient = redis.createClient();
 

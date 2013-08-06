@@ -18,11 +18,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/morphar/redis-ns.git"
+    "url": "http://github.com/nosco/redis-ns.git"
   },
-  "github": "http://github.com/morphar/redis-ns",
+  "github": "http://github.com/nosco/redis-ns",
   "bugs": {
-    "url": "http://github.com/morphar/redis-ns/issues"
+    "url": "http://github.com/nosco/redis-ns/issues"
   },
   "license": "MIT",
   "main": "./index",

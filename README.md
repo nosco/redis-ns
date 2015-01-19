@@ -1,3 +1,5 @@
+[![NPM version](https://badge.fury.io/js/redis-ns.png)](http://badge.fury.io/js/redis-ns)
+
 # redis-ns
 
 This module enables you to create Redis namespaces.

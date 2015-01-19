@@ -1,9 +1,29 @@
+var util = require('util');
 var redis = require('redis');
 
 var RedisNS = function(namespace, redisClient) {
+  var self = this;
+
   this.namespace = namespace;
-  this.redisClient = redisClient || redis.createClient();
+  this.redisClient = redisClient;
+
+  // "inherit" missing functions from redisClient
+  for(var i in redisClient) {
+    if(typeof this[i] !== 'function') {
+      this[i] = redisClient[i];
+    }
+  }
+
+  // Take care of pub/sub messages
+  redisClient.emit = function(eventType) {
+    if(eventType === 'message' && arguments.length === 3) {
+      arguments[1] = arguments[1].replace(self.namespace+':', '');
+      arguments[2] = JSON.parse(arguments[2]);
+    }
+    redis.RedisClient.prototype.emit.apply(this, arguments);
+  };
 };
+util.inherits(RedisNS, redis.RedisClient);
 module.exports = RedisNS;
 
 RedisNS.prototype['append'] = function() {
@@ -319,6 +339,7 @@ RedisNS.prototype['pttl'] = function() {
 
 RedisNS.prototype['publish'] = function() {
   arguments[0] = this.namespace + ':' + arguments[0];
+  arguments[1] = JSON.stringify(arguments[1]);
   return this.redisClient['publish'].apply(this.redisClient, arguments);
 };
 

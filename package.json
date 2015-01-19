@@ -1,20 +1,22 @@
 {
   "name": "redis-ns",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "This module enables you to create Redis namespaces.",
-  "keywords":[
+  "keywords": [
     "redis",
     "namespace",
     "ns"
   ],
-  "author": "Dan Larsen",
-  "maintainers": [{
-    "name": "Dan Larsen",
-    "email": "dan@techba.se",
-    "url": "http://github.com/morphar"
-  }],
+  "author": "name": "Dan Larsen",
+  "maintainers": [
+    {
+      "name": "Dan Larsen",
+      "email": "dan@techba.se",
+      "url": "http://github.com/morphar"
+    }
+  ],
   "dependencies": {
-    "redis": ">=0.8.2"
+    "redis": "~0.9.0"
   },
   "repository": {
     "type": "git",

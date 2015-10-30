@@ -51,7 +51,7 @@ RedisNS.prototype['blpop'] = function() {
 };
 
 RedisNS.prototype['brpop'] = function() {
-  for(var i=0 ; i < (arguments.length-1) ; i++) {
+  for(var i=0 ; i < (arguments.length-2) ; i++) {
     arguments[i] = this.namespace + ':' + arguments[i];
   }
   return this.redisClient['brpop'].apply(this.redisClient, arguments);
@@ -623,4 +623,3 @@ RedisNS.prototype['zunionstore'] = function() {
   }
   return this.redisClient['zunionstore'].apply(this.redisClient, arguments);
 };
-

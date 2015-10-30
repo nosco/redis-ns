@@ -30,5 +30,19 @@
   "main": "./index",
   "engines": {
     "node": ">=0.8.0"
+  },
+  "devDependencies": {
+    "chai": "^3.4.0",
+    "coffee-coverage": "^0.7.0",
+    "coffee-script": "^1.10.0",
+    "fakeredis": "^0.3.4",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "mocha-istanbul": "^0.2.0",
+    "sinon": "^1.17.2",
+    "sinon-chai": "^2.8.0"
+  },
+  "scripts": {
+    "test": "istanbul cover _mocha -- -R spec"
   }
 }

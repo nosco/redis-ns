@@ -42,3 +42,9 @@ Until then: Feel free to play around with it, learn from it.
 
 	npm install redis-ns
 
+
+[![Build Status](https://travis-ci.org/octoblu/redis-ns.svg?branch=master)](https://travis-ci.org/octoblu/redis-ns)
+[![Code Climate](https://codeclimate.com/github/octoblu/redis-ns/badges/gpa.svg)](https://codeclimate.com/github/octoblu/redis-ns)
+[![Test Coverage](https://codeclimate.com/github/octoblu/redis-ns/badges/coverage.svg)](https://codeclimate.com/github/octoblu/redis-ns)
+[![npm version](https://badge.fury.io/js/redis-ns.svg)](http://badge.fury.io/js/redis-ns)
+[![Gitter](https://badges.gitter.im/octoblu/help.svg)](https://gitter.im/octoblu/help)

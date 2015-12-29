@@ -9,3 +9,11 @@ describe 'RedisNS', ->
 
     it 'should not throw an error', ->
       expect(@error).not.to.exist
+
+  describe '->del', ->
+    beforeEach (done)->
+      @sut = new RedisNS 'ns', redis.createClient()
+      @sut.del 'hello', (@error) => done()
+
+    it 'should not throw an error', ->
+      expect(@error).not.to.exist

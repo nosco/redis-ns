@@ -79,7 +79,10 @@ RedisNS.prototype['decrby'] = function() {
 };
 
 RedisNS.prototype['del'] = function() {
-  for(var i=0 ; i < arguments.length ; i++) {
+  for(var i=0 ; i < arguments.length; i++) {
+    if(typeof arguments[i] === 'function'){
+      break;
+    }
     arguments[i] = this.namespace + ':' + arguments[i];
   }
   return this.redisClient['del'].apply(this.redisClient, arguments);

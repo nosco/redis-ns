@@ -1,6 +1,6 @@
 {
   "name": "@octoblu/redis-ns",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "This module enables you to create Redis namespaces.",
   "keywords": [
     "redis",

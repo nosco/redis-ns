@@ -342,7 +342,6 @@ RedisNS.prototype['pttl'] = function() {
 
 RedisNS.prototype['publish'] = function() {
   arguments[0] = this.namespace + ':' + arguments[0];
-  arguments[1] = JSON.stringify(arguments[1]);
   return this.redisClient['publish'].apply(this.redisClient, arguments);
 };
 

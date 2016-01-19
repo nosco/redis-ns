@@ -1,28 +1,27 @@
 var util = require('util');
 var redis = require('redis');
+var _ = require('lodash');
 
 var RedisNS = function(namespace, redisClient) {
   var self = this;
-
+  _.extend(self, redisClient);
   self.namespace = namespace;
   self.redisClient = redisClient;
 
-  // "inherit" missing functions from redisClient
-  for(var i in redisClient) {
-    if(typeof self[i] !== 'function') {
-      self[i] = redisClient[i];
-    }
-  }
 
   // Take care of pub/sub messages
-  redisClient.emit = function(eventType) {
-    if(eventType === 'message' && arguments.length === 3) {
-      arguments[1] = arguments[1].replace(self.namespace+':', '');
-      arguments[2] = JSON.parse(arguments[2]);
+  self.on = function(event, callback) {
+    if(event !== 'message'){
+      return redisClient.on(event, callback);
     }
-    redis.RedisClient.prototype.emit.apply(self, arguments);
-  };
 
+    redisClient.on('message', function(namespacedChannel, message){
+      channel = namespacedChannel.replace(self.namespace+':', '');
+      callback(channel, message);
+    });
+
+  };
+  
   self['append'] = function() {
     arguments[0] = self.namespace + ':' + arguments[0];
     return self.redisClient['append'].apply(self.redisClient, arguments);
@@ -338,7 +337,7 @@ var RedisNS = function(namespace, redisClient) {
   };
 
   self['publish'] = function() {
-    arguments[0] = self.namespace + ':' + arguments[0];    
+    arguments[0] = self.namespace + ':' + arguments[0];
     return self.redisClient['publish'].apply(self.redisClient, arguments);
   };
 
@@ -624,5 +623,4 @@ var RedisNS = function(namespace, redisClient) {
   };
 };
 
-util.inherits(RedisNS, redis.RedisClient);
 module.exports = RedisNS;

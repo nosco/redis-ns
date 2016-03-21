@@ -1,5 +1,5 @@
 var util = require('util');
-var redis = require('redis');
+var redis = require('ioredis');
 var _ = require('lodash');
 
 var RedisNS = function(namespace, redisClient) {
@@ -21,7 +21,7 @@ var RedisNS = function(namespace, redisClient) {
     });
 
   };
-  
+
   self['append'] = function() {
     arguments[0] = self.namespace + ':' + arguments[0];
     return self.redisClient['append'].apply(self.redisClient, arguments);

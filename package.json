@@ -1,6 +1,6 @@
 {
   "name": "@octoblu/redis-ns",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "This module enables you to create Redis namespaces.",
   "keywords": [
     "redis",
@@ -16,8 +16,8 @@
     }
   ],
   "dependencies": {
-    "lodash": "^4.0.0",
-    "redis": "^2.4.2"
+    "ioredis": "^1.15.1",
+    "lodash": "^4.0.0"
   },
   "repository": {
     "type": "git",

@@ -491,6 +491,12 @@ var RedisNS = function(namespace, redisClient) {
 
   self['subscribe'] = function() {
     for(var i=0 ; i < arguments.length ; i++) {
+      var isLastArgument = (i == arguments.length - 1);
+      var isCallback = _.isFunction(arguments[i]);
+
+      if (isLastArgument && isCallback) {
+        break;
+      }
       arguments[i] = self.namespace + ':' + arguments[i];
     }
     return self.redisClient['subscribe'].apply(self.redisClient, arguments);

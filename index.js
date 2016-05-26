@@ -4,10 +4,14 @@ var _ = require('lodash');
 
 var RedisNS = function(namespace, redisClient) {
   var self = this;
-  _.extend(self, redisClient);
   self.namespace = namespace;
   self.redisClient = redisClient;
 
+  _.each( _.functionsIn(redisClient), function (key) {
+    self[key] = function() {
+      return self.redisClient[key].apply(self.redisClient, arguments);
+    }
+  });
 
   // Take care of pub/sub messages
   self.on = function(event, callback) {

@@ -1,5 +1,4 @@
 var util = require('util');
-var redis = require('ioredis');
 var _ = require('lodash');
 
 var RedisNS = function(namespace, redisClient) {

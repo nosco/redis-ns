@@ -5,6 +5,7 @@ var RedisNS = function(namespace, redisClient) {
   var self = this;
 
   this.namespace = namespace;
+  var namespaceRE = new RegExp('^' + namespace + ':');
   this.redisClient = redisClient;
 
   // "inherit" missing functions from redisClient
@@ -14,11 +15,20 @@ var RedisNS = function(namespace, redisClient) {
     }
   }
 
-  // Take care of pub/sub messages
+  // Take care of pub/sub messages.
   redisClient.emit = function(eventType) {
     if(eventType === 'message' && arguments.length === 3) {
-      arguments[1] = arguments[1].replace(self.namespace+':', '');
+      // WARNING: This is currently broken, messages are being published in all
+      // namespaces, hence this check, and the adding of the namespace to the
+      // message itself so that subscribers can filter out messages not for them
+      var channel = arguments[1].replace(namespaceRE, '');
+      if (channel === arguments[1]) {
+        // This would be a message from a different namespace.
+        return;
+      }
+      arguments[1] = channel;
       arguments[2] = JSON.parse(arguments[2]);
+      arguments[2].namespace = namespace;
     }
     redis.RedisClient.prototype.emit.apply(this, arguments);
   };
